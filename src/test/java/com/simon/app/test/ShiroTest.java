@@ -1,6 +1,9 @@
 package com.simon.app.test;
 
 
+import com.simon.shiro.shiro.MyHash;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -12,6 +15,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class ShiroTest {
+
+    private final Log log = LogFactory.getLog(ShiroTest.class);
 
     @Test
     public void test1() {
@@ -35,7 +40,7 @@ public class ShiroTest {
 
         }
 
-        // 是否又role1角色
+        // 是否有role1角色
         Assert.assertEquals(true, subject.hasRole("role1"));
 
         // 是否有某个权限
@@ -47,5 +52,15 @@ public class ShiroTest {
 
 
         subject.logout();
+    }
+
+    @Test
+    public void encryptTest() {
+        MyHash myHash = new MyHash("123", "abc");
+
+        String hash = myHash.hash().toHex();
+        log.info("加密后的值为: "+hash);
+
+        Assert.assertEquals("b106dc6352e5ec1f8aafd8c406d34d92", hash);
     }
 }
