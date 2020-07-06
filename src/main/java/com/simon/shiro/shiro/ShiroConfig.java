@@ -54,8 +54,6 @@ public class ShiroConfig {
         manager.setRealm(myRealm());
 
         // 可以在这设置会话管理
-        manager.setSessionManager();
-        manager.start();
 
         return manager;
     }
